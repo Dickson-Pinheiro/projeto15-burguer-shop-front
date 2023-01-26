@@ -59,6 +59,13 @@ export const ContainerForm = styled.form`
             font-size: 20px;
         }
     }
+    p {
+        font-family: 'Poppins', sans-serif;
+        color: yellow;
+        font-size: 15px;
+        width: 326px;
+        
+    }
     button {
         width: 326px;
         height: 46px;
@@ -75,5 +82,17 @@ export const ContainerForm = styled.form`
         &:hover {
             background-color: #cafe90;
         }
+    }
+`
+
+export const ContainerInputForm = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    span {
+        display: block;
+        font-size: 14px;
+        font-family: 'Poppins', sans-serif;
+        color: yellow;
     }
 `
