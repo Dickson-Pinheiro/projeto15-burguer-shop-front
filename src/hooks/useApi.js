@@ -6,8 +6,8 @@ export default function useApi(token) {
   const config = {
     baseURL: process.env.REACT_APP_API_BASEURL,
     headers: {
-      authorization: token
-    }
+      authorization: token,
+    },
   };
 
   const apiFunctions = {
@@ -21,20 +21,40 @@ export default function useApi(token) {
     },
     loginUser: async (email, password) => {
       try {
-        const result = await axios.post("/sign-in/", {email, password}, {baseURL: process.env.REACT_APP_API_BASEURL})
-        return {success: true, token: result.data.token, userId: result.data.id}
+        const result = await api.post(
+          "/sign-in/",
+          { email, password },
+          { baseURL: process.env.REACT_APP_API_BASEURL }
+        );
+        return {
+          success: true,
+          token: result.data.token,
+          userId: result.data.id,
+        };
       } catch (error) {
-        return {success: false, error}
+        return { success: false, error };
       }
     },
     createUser: async (name, email, password, confirmPassword) => {
       try {
-        await axios.post("/sign-up", {name, email, password, confirmPassword}, {baseURL: process.env.REACT_APP_API_BASEURL})
-        return {success: true, error: undefined}
+        await api.post(
+          "/sign-up",
+          { name, email, password, confirmPassword },
+          { baseURL: process.env.REACT_APP_API_BASEURL }
+        );
+        return { success: true, error: undefined };
       } catch (error) {
-        return {success: false, error}
+        return { success: false, error };
       }
-    } 
+    },
+    listProducts: async () => {
+      try {
+        const products = await api.get("/products", config);
+        return { success: true, products };
+      } catch {
+        return { success: false };
+      }
+    },
   };
   return apiFunctions;
 }

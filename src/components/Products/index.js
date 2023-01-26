@@ -1,4 +1,3 @@
-import Header from "../Header";
 import {
   BurguerContainer,
   ImageContainer,
@@ -7,22 +6,26 @@ import {
 } from "./style";
 import { ButtonStyled } from "../../assets/style/buttonStyled";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import useApi from "../../hooks/useApi";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const api = useApi(localStorage.getItem("token"));
 
   useEffect(() => {
-    const url = `http://localhost:5000/products`;
-
-    const promisse = axios.get(url);
-    promisse.then((res) => setProducts(res.data));
-    promisse.catch((err) => console.log(err.response.status));
+    async function getProducts() {
+      try {
+        const result = await api.listProducts();
+        setProducts(result.products.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getProducts();
   }, []);
 
   return (
     <>
-      <Header />
       <ProductsBody>
         {products.map((p) => (
           <BurguerContainer>
