@@ -7,10 +7,12 @@ import {
 import { ButtonStyled } from "../../assets/style/buttonStyled";
 import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
+import { useNavigate } from "react-router-dom";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const api = useApi(localStorage.getItem("token"));
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getProducts() {
@@ -19,28 +21,36 @@ export default function Products() {
         setProducts(result.products.data);
       } catch (error) {
         console.log(error);
+        navigate("/login");
       }
     }
     getProducts();
   }, []);
 
+  async function postId(prodId) {
+    try {
+      const cartUser = await api.addProductToCartById(prodId);
+      console.log(cartUser, prodId, "ok");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
-    <>
-      <ProductsBody>
-        {products.map((p) => (
-          <BurguerContainer>
-            <ImageContainer>
-              <img src={p.image} alt="" />
-            </ImageContainer>
-            <InfosContainer>
-              <h1>{p.name}</h1>
-              <h2>{p.description}</h2>
-              <p>R$ {p.value}</p>
-              <ButtonStyled>Adicionar</ButtonStyled>
-            </InfosContainer>
-          </BurguerContainer>
-        ))}
-      </ProductsBody>
-    </>
+    <ProductsBody>
+      {products.map((p) => (
+        <BurguerContainer key={p._id}>
+          <ImageContainer>
+            <img src={p.image} alt="" />
+          </ImageContainer>
+          <InfosContainer>
+            <h1>{p.name}</h1>
+            <h2>{p.description}</h2>
+            <p>R$ {p.value}</p>
+            <ButtonStyled onClick={() => postId(p._id)}>Adicionar</ButtonStyled>
+          </InfosContainer>
+        </BurguerContainer>
+      ))}
+    </ProductsBody>
   );
 }
