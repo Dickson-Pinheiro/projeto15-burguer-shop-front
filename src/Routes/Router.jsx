@@ -15,7 +15,6 @@ export default function Router() {
         <Route path="/produtos" element={<Products />} />
         <Route path="/carrinho" element={<Cart />} />
       </Routes>
-      <GlobalStyle />
     </BrowserRouter>
   );
 };
