@@ -28,7 +28,7 @@ export default function Products() {
     <>
       <ProductsBody>
         {products.map((p) => (
-          <BurguerContainer>
+          <BurguerContainer key={p._id}>
             <ImageContainer>
               <img src={p.image} alt="" />
             </ImageContainer>
