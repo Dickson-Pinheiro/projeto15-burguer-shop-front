@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createRoutesFromChildren, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field } from "formik"
 import useApi from "../../hooks/useApi.js"
 import * as Yup from 'yup';
@@ -14,18 +14,18 @@ export default function Login() {
 
     async function submitLogin(values) {
 
-            const loginData = await api.loginUser(values.email, values.password)
-            console.log(loginData)
-            if (loginData.success) {
-                setErrorLogin(false)
-                localStorage.setItem("token", loginData.token)
-                localStorage.setItem("userId", loginData.id)
-                navigate("/")
-                return
-            }
-            setErrorLogin(true)
-            values.email = ""
-            values.password = ""
+        const loginData = await api.loginUser(values.email, values.password)
+        console.log(loginData)
+        if (loginData.success) {
+            setErrorLogin(false)
+            localStorage.setItem("token", loginData.token)
+            localStorage.setItem("userId", loginData.id)
+            navigate("/")
+            return
+        }
+        setErrorLogin(true)
+        values.email = ""
+        values.password = ""
     }
 
 
@@ -45,7 +45,8 @@ export default function Login() {
                         <ContainerForm onSubmit={formik.handleSubmit}>
                             {errorLogin && <p>Login ou senha incorretos</p>}
                             <ContainerInputForm>
-                                <Field type="email"
+                                <Field
+                                    type="email"
                                     placeholder="e-mail"
                                     name="email"
                                     required
@@ -55,7 +56,7 @@ export default function Login() {
                                         <span>{formik.errors.email}</span>
                                     ) : null
                                 }
-                                
+
                             </ContainerInputForm>
                             <ContainerInputForm>
                                 <Field
@@ -69,7 +70,7 @@ export default function Login() {
                                         <span>{formik.errors.password}</span>
                                     ) : null
                                 }
-                               
+
                             </ContainerInputForm>
 
                             <button type="submit">Entrar</button>
