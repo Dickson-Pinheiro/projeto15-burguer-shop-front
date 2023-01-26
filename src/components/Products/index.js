@@ -27,23 +27,30 @@ export default function Products() {
     getProducts();
   }, []);
 
+  async function postId(prodId) {
+    try {
+      const cartUser = await api.addProductToCartById(prodId);
+      console.log(cartUser, prodId, "ok");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
-    <>
-      <ProductsBody>
-        {products.map((p) => (
-          <BurguerContainer key={p._id}>
-            <ImageContainer>
-              <img src={p.image} alt="" />
-            </ImageContainer>
-            <InfosContainer>
-              <h1>{p.name}</h1>
-              <h2>{p.description}</h2>
-              <p>R$ {p.value}</p>
-              <ButtonStyled>Adicionar</ButtonStyled>
-            </InfosContainer>
-          </BurguerContainer>
-        ))}
-      </ProductsBody>
-    </>
+    <ProductsBody>
+      {products.map((p) => (
+        <BurguerContainer key={p._id}>
+          <ImageContainer>
+            <img src={p.image} alt="" />
+          </ImageContainer>
+          <InfosContainer>
+            <h1>{p.name}</h1>
+            <h2>{p.description}</h2>
+            <p>R$ {p.value}</p>
+            <ButtonStyled onClick={() => postId(p._id)}>Adicionar</ButtonStyled>
+          </InfosContainer>
+        </BurguerContainer>
+      ))}
+    </ProductsBody>
   );
 }
