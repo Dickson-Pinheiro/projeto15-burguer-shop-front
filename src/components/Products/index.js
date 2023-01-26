@@ -7,10 +7,12 @@ import {
 import { ButtonStyled } from "../../assets/style/buttonStyled";
 import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
+import { useNavigate } from "react-router-dom";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const api = useApi(localStorage.getItem("token"));
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getProducts() {
@@ -19,6 +21,7 @@ export default function Products() {
         setProducts(result.products.data);
       } catch (error) {
         console.log(error);
+        navigate("/login");
       }
     }
     getProducts();
@@ -28,7 +31,7 @@ export default function Products() {
     <>
       <ProductsBody>
         {products.map((p) => (
-          <BurguerContainer>
+          <BurguerContainer key={p._id}>
             <ImageContainer>
               <img src={p.image} alt="" />
             </ImageContainer>
