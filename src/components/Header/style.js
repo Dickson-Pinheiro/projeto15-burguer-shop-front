@@ -1,14 +1,6 @@
 import styled from "styled-components";
 
-export default function Header() {
-  return (
-    <HeaderContainer>
-      <h1>Burguer Shop</h1>
-    </HeaderContainer>
-  );
-}
-
-const HeaderContainer = styled.div`
+export const HeaderContainer = styled.div`
   padding-left: 30px;
   background-color: #eeeeee;
   color: black;
