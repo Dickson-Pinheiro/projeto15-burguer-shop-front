@@ -1,54 +1,83 @@
 import { useState } from "react";
+import { createRoutesFromChildren, Link, useNavigate } from "react-router-dom";
+import { Formik, Field } from "formik"
 import useApi from "../../hooks/useApi.js"
-import { Link, useNavigate } from "react-router-dom";
+import * as Yup from 'yup';
 
-import { ContainerLogin, LogoStyle, ContainerForm } from "./style";
+
+import { ContainerLogin, LogoStyle, ContainerForm, ContainerInputForm } from "./style";
 
 export default function Login() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
     const api = useApi()
     const navigate = useNavigate()
+    const [errorLogin, setErrorLogin] = useState(false)
 
-    async function submitLogin(e) {
-        e.preventDefault()
-        try {
-            const loginData = await api.loginUser(email, password)
+    async function submitLogin(values) {
+
+            const loginData = await api.loginUser(values.email, values.password)
+            console.log(loginData)
             if (loginData.success) {
+                setErrorLogin(false)
                 localStorage.setItem("token", loginData.token)
                 localStorage.setItem("userId", loginData.id)
                 navigate("/")
+                return
             }
-
-        } catch (error) {
-            console.log(error)
-        }
+            setErrorLogin(true)
+            values.email = ""
+            values.password = ""
     }
 
 
     return (
         <ContainerLogin>
             <LogoStyle>BurguerShop</LogoStyle>
+            <Formik
+                initialValues={{ email: "", password: "" }}
+                onSubmit={submitLogin}
+                validationSchema={Yup.object({
+                    email: Yup.string().email("Invalid email address").required('Required'),
+                    password: Yup.string().required('Required'),
+                })}
+            >
+                {
+                    formik => (
+                        <ContainerForm onSubmit={formik.handleSubmit}>
+                            {errorLogin && <p>Login ou senha incorretos</p>}
+                            <ContainerInputForm>
+                                <Field type="email"
+                                    placeholder="e-mail"
+                                    name="email"
+                                    required
+                                />
+                                {
+                                    formik.touched.email && formik.errors.email ? (
+                                        <span>{formik.errors.email}</span>
+                                    ) : null
+                                }
+                                
+                            </ContainerInputForm>
+                            <ContainerInputForm>
+                                <Field
+                                    type="password"
+                                    placeholder="senha"
+                                    name="password"
+                                    required
+                                />
+                                {
+                                    formik.touched.password && formik.errors.password ? (
+                                        <span>{formik.errors.password}</span>
+                                    ) : null
+                                }
+                               
+                            </ContainerInputForm>
 
-            <ContainerForm onSubmit={submitLogin}>
+                            <button type="submit">Entrar</button>
+                        </ContainerForm>
+                    )
+                }
+            </Formik>
 
-                <input type="email"
-                    placeholder="e-mail"
-                    onChange={e => setEmail(e.target.value)}
-                    value={email}
-                    required
-                />
-
-                <input
-                    type="password"
-                    placeholder="senha"
-                    onChange={e => setPassword(e.target.value)}
-                    value={password}
-                    required
-                />
-
-                <button>Entrar</button>
-            </ContainerForm>
             <Link to="/cadastro">Não possui uma conta? Cadastre-se!</Link>
         </ContainerLogin>
     )
