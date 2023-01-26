@@ -26,6 +26,14 @@ export default function useApi(token) {
       } catch (error) {
         return {success: false, error}
       }
+    },
+    createUser: async (name, email, password, confirmPassword) => {
+      try {
+        await axios.post("/sign-up", {name, email, password, confirmPassword}, {baseURL: process.env.REACT_APP_API_BASEURL})
+        return {success: true, error: undefined}
+      } catch (error) {
+        return {success: false, error}
+      }
     } 
   };
   return apiFunctions;
