@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const ProductsBody = styled.div`
-  margin-top: 80px;
-  padding: 30px 0px 80px 80px;
   display: flex;
   width: 80%;
   height: fit-content;
