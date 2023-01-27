@@ -8,6 +8,7 @@ export const ProductsBody = styled.div`
   gap: 20px;
   row-gap: 30px;
   column-gap: 30px;
+  margin-bottom: 30px;
 `;
 
 export const BurguerContainer = styled.div`
