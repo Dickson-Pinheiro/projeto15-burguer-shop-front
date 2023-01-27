@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom"
 import * as Yup from 'yup';
 import { Formik, Field } from "formik"
+import { ColorRing } from "react-loader-spinner";
 import useApi from "../../hooks/useApi"
 import { ContainerForm, ContainerRegister, LogoStyle, ContainerInputForm } from "./style"
 import { useState } from "react";
@@ -34,7 +35,7 @@ export default function Register() {
                 validationSchema={Yup.object({
                     name: Yup.string().required("required"),
                     email: Yup.string().email("Invalid email address").required("required"),
-                    password: Yup.string().required('Password is required'),
+                    password: Yup.string().required('required'),
                     confirmPassword: Yup.string().required("required").oneOf([Yup.ref('password'), null], 'Passwords must match')
                 })}
             >
@@ -95,7 +96,7 @@ export default function Register() {
                                     ) : null
                                 }
                             </ContainerInputForm>
-                            <button type="submit">Cadastrar</button>
+                            <button type="submit">{formik.isSubmitting ? <ColorRing color={["#EF8829", "#ffffff", "#EF8829", "#ffffff", "#EF8829"]} width={30}/>: "Cadastrar"}</button>
                         </ContainerForm>
                     )
                 }

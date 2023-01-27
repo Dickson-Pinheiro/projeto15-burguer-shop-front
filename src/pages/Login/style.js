@@ -77,6 +77,9 @@ export const ContainerForm = styled.form`
         font-size: 20px;
         line-height: 23.48px;
         color: #000000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         cursor: pointer;
         transition: background 0.3s;
         &:hover {
