@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field } from "formik"
+import { Circles} from "react-loader-spinner";
 import useApi from "../../hooks/useApi.js"
 import * as Yup from 'yup';
 
@@ -13,7 +14,6 @@ export default function Login() {
     const [errorLogin, setErrorLogin] = useState(false)
 
     async function submitLogin(values) {
-
         const loginData = await api.loginUser(values.email, values.password)
         console.log(loginData)
         if (loginData.success) {
@@ -73,7 +73,7 @@ export default function Login() {
 
                             </ContainerInputForm>
 
-                            <button type="submit">Entrar</button>
+                            <button type="submit">{formik.isSubmitting ? <Circles color="#EF8829" width={35}/> : "Entrar"}</button>
                         </ContainerForm>
                     )
                 }
