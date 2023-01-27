@@ -63,6 +63,15 @@ export default function useApi(token) {
         return { success: false };
       }
     },
+    verifyToken: async () => {
+      try {
+        const validationToken = await api.get("/verify", config)
+        return {success: true, validationToken}
+      } catch (error) {
+        return {success: false, error}
+      }
+
+    }
   };
   return apiFunctions;
 }

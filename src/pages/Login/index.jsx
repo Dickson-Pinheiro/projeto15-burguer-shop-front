@@ -1,17 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field } from "formik"
 import { Circles} from "react-loader-spinner";
 import useApi from "../../hooks/useApi.js"
 import * as Yup from 'yup';
 
-
 import { ContainerLogin, LogoStyle, ContainerForm, ContainerInputForm } from "./style";
 
 export default function Login() {
-    const api = useApi()
+    const api = useApi(localStorage.getItem("token"))
     const navigate = useNavigate()
     const [errorLogin, setErrorLogin] = useState(false)
+
+
+    useEffect(() => {
+       async function validToken(){
+            const result = await api.verifyToken(localStorage.getItem("token"))
+            console.log(result.validationToken.data.valid)
+            if(result.validationToken.data.valid){
+                navigate("/home")
+            }
+            return
+        }
+        validToken()
+    }, [])
 
     async function submitLogin(values) {
         const loginData = await api.loginUser(values.email, values.password)
@@ -20,7 +32,7 @@ export default function Login() {
             setErrorLogin(false)
             localStorage.setItem("token", loginData.token)
             localStorage.setItem("userId", loginData.id)
-            navigate("/")
+            navigate("/home")
             return
         }
         setErrorLogin(true)
