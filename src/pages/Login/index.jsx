@@ -1,31 +1,43 @@
-import { useState } from "react";
-import { createRoutesFromChildren, Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Field } from "formik"
+import { Circles} from "react-loader-spinner";
 import useApi from "../../hooks/useApi.js"
 import * as Yup from 'yup';
-
 
 import { ContainerLogin, LogoStyle, ContainerForm, ContainerInputForm } from "./style";
 
 export default function Login() {
-    const api = useApi()
+    const api = useApi(localStorage.getItem("token"))
     const navigate = useNavigate()
     const [errorLogin, setErrorLogin] = useState(false)
 
-    async function submitLogin(values) {
 
-            const loginData = await api.loginUser(values.email, values.password)
-            console.log(loginData)
-            if (loginData.success) {
-                setErrorLogin(false)
-                localStorage.setItem("token", loginData.token)
-                localStorage.setItem("userId", loginData.id)
-                navigate("/")
-                return
+    useEffect(() => {
+       async function validToken(){
+            const result = await api.verifyToken(localStorage.getItem("token"))
+            console.log(result.validationToken.data.valid)
+            if(result.validationToken.data.valid){
+                navigate("/home")
             }
-            setErrorLogin(true)
-            values.email = ""
-            values.password = ""
+            return
+        }
+        validToken()
+    }, [])
+
+    async function submitLogin(values) {
+        const loginData = await api.loginUser(values.email, values.password)
+        console.log(loginData)
+        if (loginData.success) {
+            setErrorLogin(false)
+            localStorage.setItem("token", loginData.token)
+            localStorage.setItem("userId", loginData.id)
+            navigate("/home")
+            return
+        }
+        setErrorLogin(true)
+        values.email = ""
+        values.password = ""
     }
 
 
@@ -45,7 +57,8 @@ export default function Login() {
                         <ContainerForm onSubmit={formik.handleSubmit}>
                             {errorLogin && <p>Login ou senha incorretos</p>}
                             <ContainerInputForm>
-                                <Field type="email"
+                                <Field
+                                    type="email"
                                     placeholder="e-mail"
                                     name="email"
                                     required
@@ -55,7 +68,7 @@ export default function Login() {
                                         <span>{formik.errors.email}</span>
                                     ) : null
                                 }
-                                
+
                             </ContainerInputForm>
                             <ContainerInputForm>
                                 <Field
@@ -69,10 +82,10 @@ export default function Login() {
                                         <span>{formik.errors.password}</span>
                                     ) : null
                                 }
-                               
+
                             </ContainerInputForm>
 
-                            <button type="submit">Entrar</button>
+                            <button type="submit">{formik.isSubmitting ? <Circles color="#EF8829" width={35}/> : "Entrar"}</button>
                         </ContainerForm>
                     )
                 }

@@ -19,6 +19,14 @@ export default function useApi(token) {
         return { success: false, error };
       }
     },
+    showCartProducts: async () => {
+      try {
+        const { data: cartProducts } = await api.get('/cart', config);
+        return { success: true, cartProducts, error: undefined };
+      } catch (error) {
+        return { success: false, cartProducts: undefined, error };
+      }
+    },
     loginUser: async (email, password) => {
       try {
         const result = await api.post(
@@ -55,6 +63,15 @@ export default function useApi(token) {
         return { success: false };
       }
     },
+    verifyToken: async () => {
+      try {
+        const validationToken = await api.get("/verify", config)
+        return {success: true, validationToken}
+      } catch (error) {
+        return {success: false, error}
+      }
+
+    }
   };
   return apiFunctions;
 }
