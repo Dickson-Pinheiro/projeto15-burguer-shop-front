@@ -4,6 +4,7 @@ import CartProduct from "../ProductCart";
 import { CartContainer, CartHeader, CartList, DeleteAllButton, TotalContainer } from "./style";
 
 export default function Cart() {
+
   const token = localStorage.getItem('token');
   const { showCartProducts } = useApi(token);
   const [cartProducts, setCartProducts] = useState([]);
@@ -27,9 +28,6 @@ export default function Cart() {
 
   return (
     <CartContainer>
-      <CartHeader>
-        <h3>Carrinho de Compras</h3>
-      </CartHeader>
       <CartList>
         {cartProducts.length === 0
           ?
