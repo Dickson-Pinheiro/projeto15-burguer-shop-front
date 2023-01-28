@@ -16,7 +16,7 @@ export default function Register() {
         try {
             const result = await api.createUser(value.name, value.email, value.password, value.confirmPassword)
             if (result.success) {
-                navigate("/login")
+                navigate("/")
                 return
             }
             setRegisterError(true)
@@ -102,7 +102,7 @@ export default function Register() {
                 }
 
             </Formik>
-            <Link to="/login">Já possui cadastro? Entrar!</Link>
+            <Link to="/">Já possui cadastro? Entrar!</Link>
         </ContainerRegister>
     )
 }
