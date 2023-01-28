@@ -5,11 +5,11 @@ import useApi from "../hooks/useApi";
 export const CartContext = createContext();
 
 export default function CartProvider({ children }) {
-  const api = useApi(localStorage.get('token'));
+  const api = useApi(localStorage.getItem('token'));
   const [cart, setCart] = useState([]);
   const getCart = async () => {
     try {
-      const { success, error, cartProducts } = await showCartProducts();
+      const { success, error, cartProducts } = await api.showCartProducts();
       if (!success) return alert(error);
       setCart(cartProducts);
     } catch (error) {
