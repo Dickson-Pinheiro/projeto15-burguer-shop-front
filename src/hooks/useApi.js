@@ -16,7 +16,7 @@ export default function useApi(token) {
         await api.post(`/cart/${productId}`, undefined, config);
         return { success: true, error: undefined };
       } catch (error) {
-        return { success: false, error };
+        return { success: false, error: error.response.data };
       }
     },
     showCartProducts: async () => {
@@ -24,7 +24,23 @@ export default function useApi(token) {
         const { data: cartProducts } = await api.get('/cart', config);
         return { success: true, cartProducts, error: undefined };
       } catch (error) {
-        return { success: false, cartProducts: undefined, error };
+        return { success: false, cartProducts: undefined, error: error.response.data };
+      }
+    },
+    deleteCartProductById: async (id) => {
+      try {
+        await api.delete(`/cart/${id}`, config);
+        return ({ success: true, error: undefined });
+      } catch (error) {
+        return ({ success: false, error: error.response.data });
+      }
+    },
+    deleteAllCartProducts: async () => {
+      try {
+        await api.delete('/cart', config);
+        return ({ success: true, error: undefined });
+      } catch (error) {
+        return ({ success: false, error: error.response.data });
       }
     },
     loginUser: async (email, password) => {
@@ -65,10 +81,10 @@ export default function useApi(token) {
     },
     verifyToken: async () => {
       try {
-        const validationToken = await api.get("/verify", config)
-        return {success: true, validationToken}
+        const validationToken = await api.get("/verify", config);
+        return { success: true, validationToken };
       } catch (error) {
-        return {success: false, error}
+        return { success: false, error };
       }
 
     }
