@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
 import CartProduct from "../ProductCart";
-import { CartContainer, CartHeader, CartList, DeleteAllButton, TotalContainer } from "./style";
+import {
+  CartContainer,
+  CartList,
+  DeleteAllButton,
+  TotalContainer,
+} from "./style";
 
 export default function Cart() {
-
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   const { showCartProducts } = useApi(token);
   const [cartProducts, setCartProducts] = useState([]);
   const totalAmount = cartProducts.reduce((total, { value }) => {
-    return total += value;
+    return (total += parseFloat(value));
   }, 0);
 
   useEffect(() => {
     const getProducts = async () => {
       const { success, cartProducts, error } = await showCartProducts();
       if (!success) {
-        return alert(error);
+        return console.log(error);
       }
       setCartProducts(cartProducts);
     };
@@ -29,26 +33,28 @@ export default function Cart() {
   return (
     <CartContainer>
       <CartList>
-        {cartProducts.length === 0
-          ?
+        {cartProducts.length === 0 ? (
           <>
             <h3>Sua sacola está vazia</h3>
             <p>Adicione itens</p>
           </>
-          :
+        ) : (
           <>
-            {cartProducts.map((product, idx) =>
+            {cartProducts.map((product, idx) => (
               <CartProduct product={product} key={idx} />
-            )}
+            ))}
             <TotalContainer>
               <strong>Total</strong>
-              <p>R${totalAmount.toLocaleString('pt-br', { minimumFractionDigits: 2 })}</p>
+              <p>
+                R$
+                {totalAmount.toLocaleString("pt-br", {
+                  minimumFractionDigits: 2,
+                })}
+              </p>
             </TotalContainer>
-            <DeleteAllButton>
-              Remover Todos
-            </DeleteAllButton>
+            <DeleteAllButton>Remover Todos</DeleteAllButton>
           </>
-        }
+        )}
       </CartList>
     </CartContainer>
   );
