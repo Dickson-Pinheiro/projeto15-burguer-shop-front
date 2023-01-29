@@ -12,6 +12,9 @@ export const CheckoutBody = styled.div`
   span {
     font-weight: bold;
   }
+  i {
+    font-style: italic;
+  }
 `;
 
 export const H1 = styled.h1`

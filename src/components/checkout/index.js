@@ -33,29 +33,31 @@ export function Checkout() {
       <h1>Endereço:</h1>
       <CheckoutBody>
         <h2>
-          <span>Cidade:</span> {address.cidade}
+          Cidade: <i>{address.cidade}</i>
         </h2>
         <h2>
-          <span>Bairro:</span> {address.bairro}
+          Bairro: <i>{address.bairro}</i>
         </h2>
         <h2>
-          <span>Rua:</span> {address.rua}
+          Rua: <i>{address.rua}</i>
         </h2>
         <h2>
-          <span>Numero:</span> {address.numero}
+          Numero: <i>{address.numero}</i>
         </h2>
       </CheckoutBody>
       <h1>Pagamento:</h1>
       <CheckoutBody>
         <h2>
-          <span>Forma de pagamento:</span>
-          {address.formaDepagamento}
+          Forma de pagamento: <i>{address.formaDepagamento}</i>
         </h2>
         <h2>
-          <span>total a pagar:</span> R$
-          {totalAmount.toLocaleString("pt-br", {
-            minimumFractionDigits: 2,
-          })}
+          total a pagar:{" "}
+          <i>
+            R$
+            {totalAmount.toLocaleString("pt-br", {
+              minimumFractionDigits: 2,
+            })}
+          </i>
         </h2>
       </CheckoutBody>
     </>
