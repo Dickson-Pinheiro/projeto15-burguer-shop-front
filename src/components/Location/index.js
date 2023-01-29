@@ -1,17 +1,24 @@
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../contexts/CartContext";
-import { InputStyle, SelectPayment } from "./style";
+import {
+  InputStyle,
+  SelectPayment,
+  InputStreet,
+  InputNumber,
+  ContainerInp,
+} from "./style";
 
 export function LocationForm() {
-  const { setAddress, address } = useContext(CartContext);
+  const { setAddress } = useContext(CartContext);
   const [cidade, setCidade] = useState();
   const [bairro, setBairro] = useState();
   const [rua, setRua] = useState();
+  const [numero, setNumero] = useState();
   const [formaDepagamento, setFormaDepagamento] = useState();
 
   useEffect(
-    () => setAddress({ cidade, bairro, rua, formaDepagamento }),
-    [cidade, bairro, rua, formaDepagamento]
+    () => setAddress({ cidade, bairro, rua, numero, formaDepagamento }),
+    [cidade, bairro, rua, numero, formaDepagamento]
   );
 
   return (
@@ -31,13 +38,23 @@ export function LocationForm() {
         name="text"
         required
       ></InputStyle>
-      <InputStyle
-        type="text"
-        placeholder="Rua e numero"
-        onChange={(e) => setRua(e.target.value)}
-        name="text"
-        required
-      ></InputStyle>
+
+      <ContainerInp>
+        <InputStreet
+          type="text"
+          placeholder="Rua"
+          onChange={(e) => setRua(e.target.value)}
+          name="text"
+          required
+        ></InputStreet>
+        <InputNumber
+          type="text"
+          placeholder="N.º"
+          onChange={(e) => setNumero(e.target.value)}
+          name="text"
+          required
+        ></InputNumber>
+      </ContainerInp>
       <h1>Forma de pagamento:</h1>
       <SelectPayment
         name="paymenentMethods"

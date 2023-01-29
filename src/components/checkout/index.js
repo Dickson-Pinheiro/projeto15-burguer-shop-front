@@ -16,6 +16,10 @@ export function Checkout() {
     }
   }
 
+  const totalAmount = cart.reduce((total, { value }) => {
+    return (total += parseFloat(value));
+  }, 0);
+
   return (
     <>
       <h1>Produtos:</h1>
@@ -37,10 +41,22 @@ export function Checkout() {
         <h2>
           <span>Rua:</span> {address.rua}
         </h2>
+        <h2>
+          <span>Numero:</span> {address.numero}
+        </h2>
       </CheckoutBody>
-      <h1>Forma de pagamento:</h1>
+      <h1>Pagamento:</h1>
       <CheckoutBody>
-        <h2>{address.formaDepagamento}</h2>
+        <h2>
+          <span>Forma de pagamento:</span>
+          {address.formaDepagamento}
+        </h2>
+        <h2>
+          <span>total a pagar:</span> R$
+          {totalAmount.toLocaleString("pt-br", {
+            minimumFractionDigits: 2,
+          })}
+        </h2>
       </CheckoutBody>
     </>
   );
