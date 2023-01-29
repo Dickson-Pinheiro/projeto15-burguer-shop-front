@@ -41,7 +41,7 @@ export function FormsSteps() {
             {cart.length ? (
               <ButtonStyled
                 type={currentStep === 1 ? "submit" : "button"}
-                onClick={currentStep != 1 || cart.length ? next : undefined}
+                onClick={currentStep !== 1 ? next : undefined}
               >
                 {isLastStep ? "Confirmar" : "Proximo"}
               </ButtonStyled>

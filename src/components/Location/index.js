@@ -27,7 +27,7 @@ export function LocationForm() {
       <InputStyle
         type="text"
         placeholder="Cidade"
-        name="text"
+        name="cidade"
         onChange={(e) => setCidade(e.target.value)}
         required
       ></InputStyle>
@@ -35,7 +35,7 @@ export function LocationForm() {
         type="text"
         placeholder="Bairro"
         onChange={(e) => setBairro(e.target.value)}
-        name="text"
+        name="bairro"
         required
       ></InputStyle>
 
@@ -44,14 +44,14 @@ export function LocationForm() {
           type="text"
           placeholder="Rua"
           onChange={(e) => setRua(e.target.value)}
-          name="text"
+          name="rua"
           required
         ></InputStreet>
         <InputNumber
           type="text"
           placeholder="N.º"
           onChange={(e) => setNumero(e.target.value)}
-          name="text"
+          name="numero"
           required
         ></InputNumber>
       </ContainerInp>
@@ -63,9 +63,9 @@ export function LocationForm() {
         required
       >
         <option value=""></option>
-        <option value="dinheiro">Dinheiro</option>
-        <option value="cartão de credito">Cartão de credito</option>
-        <option value="pix">Pix</option>
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Cartão de credito">Cartão de credito</option>
+        <option value="Pix">Pix</option>
       </SelectPayment>
     </>
   );
