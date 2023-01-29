@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { H1 } from "./style";
 
 export function useMultStepFoms(steps) {
   const [currentStep, setCurrentStep] = useState(0);
@@ -24,10 +25,14 @@ export function useMultStepFoms(steps) {
     currentStep,
     step: steps[currentStep],
     isFirstStep: currentStep === 0,
-    isLastStep: currentStep === steps.length - 1,
+    isLastStep: currentStep === steps.length - 2,
     steps,
     goTo,
     next,
     back,
   };
+}
+
+export function Finished() {
+  return <H1> Compra finalizada</H1>;
 }

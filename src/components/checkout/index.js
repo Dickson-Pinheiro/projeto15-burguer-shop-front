@@ -1,60 +1,80 @@
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
-import { CheckoutBody, H1 } from "./style";
+import { CheckoutBody } from "./style";
+import useApi from "../../hooks/useApi";
 
-export function Checkout() {
+export default function Checkout() {
   const { cart, address } = useContext(CartContext);
+  const { city, street, district, number, paymentForms } = address;
+  const api = useApi();
 
-  let checkoutCart = [];
-  let total = 1;
+  let orders = [];
+  let amount = 1;
   for (let i = 0; i < cart.length; i++) {
     if (i < cart.length - 1 && cart[i].name == cart[i + 1].name) {
-      total++;
+      amount++;
     } else {
-      checkoutCart.push({ name: cart[i].name, total: total });
-      total = 1;
+      orders.push({ product: cart[i].name, amount: amount });
+      amount = 1;
     }
   }
 
-  const totalAmount = cart.reduce((total, { value }) => {
+  const value = cart.reduce((total, { value }) => {
     return (total += parseFloat(value));
   }, 0);
+
+  async function postData() {
+    try {
+      const result = await api.checkoutPost(
+        city,
+        street,
+        district,
+        number,
+        paymentForms,
+        value,
+        orders
+      );
+      console.log(result.success);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
       <h1>Produtos:</h1>
       <CheckoutBody>
-        {checkoutCart.map((c) => (
-          <h2 key={c.name}>
-            <span>{c.total}</span> {c.name}
+        {orders.map((c) => (
+          <h2 key={c.product}>
+            <span>{c.amount}</span> <i>{c.product}</i>
           </h2>
         ))}
       </CheckoutBody>
       <h1>Endereço:</h1>
       <CheckoutBody>
         <h2>
-          Cidade: <i>{address.cidade}</i>
+          Cidade: <i>{city}</i>
         </h2>
         <h2>
-          Bairro: <i>{address.bairro}</i>
+          Bairro: <i>{district}</i>
         </h2>
         <h2>
-          Rua: <i>{address.rua}</i>
+          Rua: <i>{street}</i>
         </h2>
         <h2>
-          Numero: <i>{address.numero}</i>
+          Numero: <i>{number}</i>
         </h2>
       </CheckoutBody>
       <h1>Pagamento:</h1>
       <CheckoutBody>
         <h2>
-          Forma de pagamento: <i>{address.formaDepagamento}</i>
+          Forma de pagamento: <i>{paymentForms}</i>
         </h2>
         <h2>
-          total a pagar:{" "}
+          Total a pagar:{" "}
           <i>
             R$
-            {totalAmount.toLocaleString("pt-br", {
+            {value.toLocaleString("pt-br", {
               minimumFractionDigits: 2,
             })}
           </i>
@@ -62,8 +82,4 @@ export function Checkout() {
       </CheckoutBody>
     </>
   );
-}
-
-export function Finished() {
-  return <H1> Compra finalizada</H1>;
 }

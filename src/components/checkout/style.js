@@ -8,17 +8,13 @@ export const CheckoutBody = styled.div`
   h2 {
     margin-bottom: 5px;
     padding-left: 10px;
+    font-weight: 500;
   }
   span {
-    font-weight: bold;
+    font-weight: 700;
   }
   i {
     font-style: italic;
+    font-weight: 400;
   }
-`;
-
-export const H1 = styled.h1`
-  display: flex;
-  justify-content: center;
-  padding: 40px;
 `;

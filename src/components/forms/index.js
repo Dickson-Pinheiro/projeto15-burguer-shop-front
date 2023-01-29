@@ -1,11 +1,12 @@
-import { useMultStepFoms } from "./config";
+import { Finished, useMultStepFoms } from "./config";
 import { LocationForm } from "../Location";
-import { Checkout, Finished } from "../checkout";
+import Checkout from "../checkout";
 import { FormsContainer, HeaderForms, BodyForms } from "./style";
 import Cart from "../Cart";
 import { ButtonStyled } from "../../assets/style/buttonStyled";
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
+import useApi from "../../hooks/useApi";
 
 const title = ["Carrinho", "Endereço", "Confirmar Compra"];
 
@@ -41,7 +42,7 @@ export function FormsSteps() {
             {cart.length ? (
               <ButtonStyled
                 type={currentStep === 1 ? "submit" : "button"}
-                onClick={currentStep !== 1 ? next : undefined}
+                onClick={currentStep === 1 ? undefined : next}
               >
                 {isLastStep ? "Confirmar" : "Proximo"}
               </ButtonStyled>
