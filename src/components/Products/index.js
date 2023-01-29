@@ -46,7 +46,7 @@ export default function Products() {
           <InfosContainer>
             <h1>{p.name}</h1>
             <h2>{p.description}</h2>
-            <p>R$ {p.value}</p>
+            <p>R$ {p.value.toFixed(2)}</p>
             <ButtonStyled onClick={() => postId(p._id)}>Adicionar</ButtonStyled>
           </InfosContainer>
         </BurguerContainer>
