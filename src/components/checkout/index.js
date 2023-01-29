@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
-import { CheckoutBody } from "./style";
+import { CheckoutBody, H1 } from "./style";
 
 export function Checkout() {
   const { cart, address } = useContext(CartContext);
@@ -25,7 +25,7 @@ export function Checkout() {
       <h1>Produtos:</h1>
       <CheckoutBody>
         {checkoutCart.map((c) => (
-          <h2>
+          <h2 key={c.name}>
             <span>{c.total}</span> {c.name}
           </h2>
         ))}
@@ -60,4 +60,8 @@ export function Checkout() {
       </CheckoutBody>
     </>
   );
+}
+
+export function Finished() {
+  return <H1> Compra finalizada</H1>;
 }

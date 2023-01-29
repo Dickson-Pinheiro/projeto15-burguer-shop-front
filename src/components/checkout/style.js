@@ -13,3 +13,9 @@ export const CheckoutBody = styled.div`
     font-weight: bold;
   }
 `;
+
+export const H1 = styled.h1`
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+`;

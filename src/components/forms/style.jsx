@@ -16,6 +16,7 @@ export const FormsContainer = styled.form`
 `;
 
 export const HeaderForms = styled.div`
+  height: 40px;
   background-color: #51a65d;
   color: #fff;
   padding: 12px;
