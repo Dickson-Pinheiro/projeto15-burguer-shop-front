@@ -53,7 +53,9 @@ export default function Cart() {
                 })}
               </p>
             </TotalContainer>
-            <DeleteAllButton onClick={deleteAllProducts}>Remover Todos</DeleteAllButton>
+            <DeleteAllButton type="button" onClick={deleteAllProducts}>
+              Remover Todos
+            </DeleteAllButton>
           </>
         )}
       </CartList>

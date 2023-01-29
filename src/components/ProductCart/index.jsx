@@ -1,5 +1,10 @@
 import useCart from "../../hooks/useCart";
-import { DeleteButton, ImgContainer, ProductInfoContainer, StyledProductCart } from "./style";
+import {
+  DeleteButton,
+  ImgContainer,
+  ProductInfoContainer,
+  StyledProductCart,
+} from "./style";
 
 export default function CartProduct({ product }) {
   const { image, name, type, _id } = product;
@@ -8,13 +13,12 @@ export default function CartProduct({ product }) {
     <StyledProductCart>
       <ImgContainer>
         <img src={image} alt={name} />
-
       </ImgContainer>
       <ProductInfoContainer>
         <h3>{name}</h3>
         <p> {type} </p>
       </ProductInfoContainer>
-      <DeleteButton onClick={() => deleteProduct(_id)}>
+      <DeleteButton type="button" onClick={() => deleteProduct(_id)}>
         Remover
       </DeleteButton>
     </StyledProductCart>
