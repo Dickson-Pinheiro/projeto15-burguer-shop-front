@@ -37,7 +37,7 @@ export function FormsSteps() {
               <ButtonStyled type="button" onClick={back}>
                 Voltar
               </ButtonStyled>
-            )}{" "}
+            )}
             {cart.length ? (
               <ButtonStyled
                 type={currentStep === 1 ? "submit" : "button"}
