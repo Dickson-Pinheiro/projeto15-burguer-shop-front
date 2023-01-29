@@ -8,11 +8,13 @@ import { ButtonStyled } from "../../assets/style/buttonStyled";
 import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
 import { useNavigate } from "react-router-dom";
+import useCart from "../../hooks/useCart";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
   const api = useApi(localStorage.getItem("token"));
   const navigate = useNavigate();
+  const { addProduct } = useCart();
 
   useEffect(() => {
     async function getProducts() {
@@ -47,7 +49,7 @@ export default function Products() {
             <h1>{p.name}</h1>
             <h2>{p.description}</h2>
             <p>R$ {p.value.toFixed(2)}</p>
-            <ButtonStyled onClick={() => postId(p._id)}>Adicionar</ButtonStyled>
+            <ButtonStyled onClick={() => addProduct(p._id)}>Adicionar</ButtonStyled>
           </InfosContainer>
         </BurguerContainer>
       ))}
