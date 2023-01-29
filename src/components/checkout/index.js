@@ -1,20 +1,18 @@
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { CheckoutBody } from "./style";
-import useApi from "../../hooks/useApi";
 
 export default function Checkout() {
-  const { cart, address } = useContext(CartContext);
+  const { cart, address, orders, setOrders } = useContext(CartContext);
   const { city, street, district, number, paymentForms } = address;
-  const api = useApi();
 
-  let orders = [];
+
   let amount = 1;
   for (let i = 0; i < cart.length; i++) {
-    if (i < cart.length - 1 && cart[i].name == cart[i + 1].name) {
+    if (i < cart.length - 1 && cart[i].name === cart[i + 1].name) {
       amount++;
     } else {
-      orders.push({ product: cart[i].name, amount: amount });
+      setOrders(...orders, { product: cart[i].name, amount: amount } )
       amount = 1;
     }
   }
@@ -23,22 +21,6 @@ export default function Checkout() {
     return (total += parseFloat(value));
   }, 0);
 
-  async function postData() {
-    try {
-      const result = await api.checkoutPost(
-        city,
-        street,
-        district,
-        number,
-        paymentForms,
-        value,
-        orders
-      );
-      console.log(result.success);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   return (
     <>
