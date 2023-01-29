@@ -8,6 +8,7 @@ export default function CartProvider({ children }) {
   const api = useApi(localStorage.getItem("token"));
   const [cart, setCart] = useState([]);
   const [address, setAddress] = useState([]);
+  const [orders, setOrders] = useState([])
   const getCart = async () => {
     try {
       const { success, error, cartProducts } = await api.showCartProducts();
@@ -50,6 +51,8 @@ export default function CartProvider({ children }) {
         deleteAllProducts,
         setAddress,
         address,
+        orders,
+        setOrders
       }}
     >
       {children}

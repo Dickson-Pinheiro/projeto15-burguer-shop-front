@@ -11,12 +11,36 @@ import useApi from "../../hooks/useApi";
 const title = ["Carrinho", "Endereço", "Confirmar Compra"];
 
 export function FormsSteps() {
-  const { cart } = useContext(CartContext);
+  const { cart, address, orders } = useContext(CartContext);
+  const { city, street, district, number, paymentForms } = address;
+  const api = useApi(localStorage.getItem("token"))
 
   function onSubmit(e) {
     e.preventDefault();
     next();
   }
+
+  async function postData() {
+    try {
+      const result = await api.checkoutPost(
+        city,
+        street,
+        district,
+        number,
+        paymentForms,
+        value,
+        orders
+      );
+      console.log(result.success);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const value = cart.reduce((total, { value }) => {
+    return (total += parseFloat(value));
+  }, 0);
+
 
   const { steps, currentStep, step, isFirstStep, back, next, isLastStep } =
     useMultStepFoms([<Cart />, <LocationForm />, <Checkout />, <Finished />]);
@@ -42,7 +66,7 @@ export function FormsSteps() {
             {cart.length ? (
               <ButtonStyled
                 type={currentStep === 1 ? "submit" : "button"}
-                onClick={currentStep === 1 ? undefined : next}
+                onClick={isLastStep ? postData :(currentStep === 1 ? undefined : next)}
               >
                 {isLastStep ? "Confirmar" : "Proximo"}
               </ButtonStyled>
