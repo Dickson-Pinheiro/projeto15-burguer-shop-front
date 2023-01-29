@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import useApi from "../../hooks/useApi";
+import useCart from "../../hooks/useCart";
 import CartProduct from "../ProductCart";
 import {
   CartContainer,
@@ -11,36 +12,36 @@ import {
 export default function Cart() {
   const token = localStorage.getItem("token");
   const { showCartProducts } = useApi(token);
-  const [cartProducts, setCartProducts] = useState([]);
-  const totalAmount = cartProducts.reduce((total, { value }) => {
+  const { cart, deleteAllProducts } = useCart();
+  const totalAmount = cart.reduce((total, { value }) => {
     return (total += parseFloat(value));
   }, 0);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const { success, cartProducts, error } = await showCartProducts();
-      if (!success) {
-        return console.log(error);
-      }
-      setCartProducts(cartProducts);
-    };
+  // useEffect(() => {
+  //   const getProducts = async () => {
+  //     const { success, cartProducts, error } = await showCartProducts();
+  //     if (!success) {
+  //       return console.log(error);
+  //     }
+  //     setCartProducts(cartProducts);
+  //   };
 
-    getProducts();
-  }, []);
+  //   getProducts();
+  // }, []);
 
   //TODO: Tornar carrinho reponsivo
 
   return (
     <CartContainer>
       <CartList>
-        {cartProducts.length === 0 ? (
+        {cart.length === 0 ? (
           <>
             <h3>Sua sacola está vazia</h3>
             <p>Adicione itens</p>
           </>
         ) : (
           <>
-            {cartProducts.map((product, idx) => (
+            {cart.map((product, idx) => (
               <CartProduct product={product} key={idx} />
             ))}
             <TotalContainer>
@@ -52,7 +53,7 @@ export default function Cart() {
                 })}
               </p>
             </TotalContainer>
-            <DeleteAllButton>Remover Todos</DeleteAllButton>
+            <DeleteAllButton onClick={deleteAllProducts}>Remover Todos</DeleteAllButton>
           </>
         )}
       </CartList>
