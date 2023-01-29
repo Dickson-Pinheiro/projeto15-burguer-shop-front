@@ -43,7 +43,9 @@ export function LocationForm() {
         name="paymenentMethods"
         id="lista-conteudos"
         onChange={(e) => setFormaDepagamento(e.target.value)}
+        required
       >
+        <option value=""></option>
         <option value="dinheiro">Dinheiro</option>
         <option value="cartão de credito">Cartão de credito</option>
         <option value="pix">Pix</option>
