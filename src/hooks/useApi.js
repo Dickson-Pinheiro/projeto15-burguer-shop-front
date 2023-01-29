@@ -21,26 +21,30 @@ export default function useApi(token) {
     },
     showCartProducts: async () => {
       try {
-        const { data: cartProducts } = await api.get('/cart', config);
+        const { data: cartProducts } = await api.get("/cart", config);
         return { success: true, cartProducts, error: undefined };
       } catch (error) {
-        return { success: false, cartProducts: undefined, error: error.response.data };
+        return {
+          success: false,
+          cartProducts: undefined,
+          error: error.response.data,
+        };
       }
     },
     deleteCartProductById: async (id) => {
       try {
         await api.delete(`/cart/${id}`, config);
-        return ({ success: true, error: undefined });
+        return { success: true, error: undefined };
       } catch (error) {
-        return ({ success: false, error: error.response.data });
+        return { success: false, error: error.response.data };
       }
     },
     deleteAllCartProducts: async () => {
       try {
-        await api.delete('/cart', config);
-        return ({ success: true, error: undefined });
+        await api.delete("/cart", config);
+        return { success: true, error: undefined };
       } catch (error) {
-        return ({ success: false, error: error.response.data });
+        return { success: false, error: error.response.data };
       }
     },
     loginUser: async (email, password) => {
@@ -86,8 +90,27 @@ export default function useApi(token) {
       } catch (error) {
         return { success: false, error };
       }
-
-    }
+    },
+    checkoutPost: async (
+      city,
+      street,
+      district,
+      number,
+      paymentForms,
+      value,
+      orders
+    ) => {
+      try {
+        await api.post(
+          "/checkout",
+          { city, street, district, number, paymentForms, value, orders },
+          { baseURL: process.env.REACT_APP_API_BASEURL }
+        );
+        return { success: true };
+      } catch (error) {
+        return { success: false, error };
+      }
+    },
   };
   return apiFunctions;
 }

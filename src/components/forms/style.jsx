@@ -39,3 +39,8 @@ export const BodyForms = styled.div`
     text-align: left;
   }
 `;
+export const H1 = styled.h1`
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+`;

@@ -10,7 +10,7 @@ export const CartContainer = styled.div`
 
 export const CartList = styled.div`
   background-color: #eeeeee;
-  padding: 40px;
+  padding-bottom: 20px;
   text-align: center;
 
   display: flex;

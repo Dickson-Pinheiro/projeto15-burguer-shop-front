@@ -10,15 +10,15 @@ import {
 
 export function LocationForm() {
   const { setAddress } = useContext(CartContext);
-  const [cidade, setCidade] = useState();
-  const [bairro, setBairro] = useState();
-  const [rua, setRua] = useState();
-  const [numero, setNumero] = useState();
-  const [formaDepagamento, setFormaDepagamento] = useState();
+  const [city, setCity] = useState();
+  const [district, setDistrict] = useState();
+  const [street, setStreet] = useState();
+  const [number, setNumber] = useState();
+  const [paymentForms, setPaymentForms] = useState();
 
   useEffect(
-    () => setAddress({ cidade, bairro, rua, numero, formaDepagamento }),
-    [cidade, bairro, rua, numero, formaDepagamento]
+    () => setAddress({ city, district, street, number, paymentForms }),
+    [city, district, street, number, paymentForms]
   );
 
   return (
@@ -27,15 +27,15 @@ export function LocationForm() {
       <InputStyle
         type="text"
         placeholder="Cidade"
-        name="cidade"
-        onChange={(e) => setCidade(e.target.value)}
+        name="city"
+        onChange={(e) => setCity(e.target.value)}
         required
       ></InputStyle>
       <InputStyle
         type="text"
         placeholder="Bairro"
-        onChange={(e) => setBairro(e.target.value)}
-        name="bairro"
+        onChange={(e) => setDistrict(e.target.value)}
+        name="district"
         required
       ></InputStyle>
 
@@ -43,15 +43,15 @@ export function LocationForm() {
         <InputStreet
           type="text"
           placeholder="Rua"
-          onChange={(e) => setRua(e.target.value)}
-          name="rua"
+          onChange={(e) => setStreet(e.target.value)}
+          name="street"
           required
         ></InputStreet>
         <InputNumber
           type="text"
           placeholder="N.º"
-          onChange={(e) => setNumero(e.target.value)}
-          name="numero"
+          onChange={(e) => setNumber(e.target.value)}
+          name="number"
           required
         ></InputNumber>
       </ContainerInp>
@@ -59,7 +59,7 @@ export function LocationForm() {
       <SelectPayment
         name="paymenentMethods"
         id="lista-conteudos"
-        onChange={(e) => setFormaDepagamento(e.target.value)}
+        onChange={(e) => setPaymentForms(e.target.value)}
         required
       >
         <option value=""></option>

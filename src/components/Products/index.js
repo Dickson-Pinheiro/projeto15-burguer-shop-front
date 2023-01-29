@@ -29,15 +29,6 @@ export default function Products() {
     getProducts();
   }, []);
 
-  async function postId(prodId) {
-    try {
-      const cartUser = await api.addProductToCartById(prodId);
-      console.log(cartUser, prodId, "ok");
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   return (
     <ProductsBody>
       {products.map((p) => (
@@ -49,7 +40,9 @@ export default function Products() {
             <h1>{p.name}</h1>
             <h2>{p.description}</h2>
             <p>R$ {p.value.toFixed(2)}</p>
-            <ButtonStyled onClick={() => addProduct(p._id)}>Adicionar</ButtonStyled>
+            <ButtonStyled onClick={() => addProduct(p._id)}>
+              Adicionar
+            </ButtonStyled>
           </InfosContainer>
         </BurguerContainer>
       ))}
