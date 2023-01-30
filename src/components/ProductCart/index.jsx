@@ -18,7 +18,7 @@ export default function CartProduct({ product }) {
         <h3>{name}</h3>
         <p> {type} </p>
       </ProductInfoContainer>
-      <DeleteButton type="button" onClick={() => deleteProduct(_id)}>
+      <DeleteButton type="button" onClick={() => deleteProduct(name)}>
         Remover
       </DeleteButton>
     </StyledProductCart>

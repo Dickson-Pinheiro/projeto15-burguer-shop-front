@@ -31,9 +31,9 @@ export default function useApi(token) {
         };
       }
     },
-    deleteCartProductById: async (id) => {
+    deleteCartProductById: async (name) => {
       try {
-        await api.delete(`/cart/${id}`, config);
+        await api.delete(`/cart/${name}`, config);
         return { success: true, error: undefined };
       } catch (error) {
         return { success: false, error: error.response.data };

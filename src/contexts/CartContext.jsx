@@ -25,8 +25,8 @@ export default function CartProvider({ children }) {
     await getCart();
   };
 
-  const deleteProduct = async (productId) => {
-    const { success, error } = await api.deleteCartProductById(productId);
+  const deleteProduct = async (name) => {
+    const { success, error } = await api.deleteCartProductById(name);
     if (!success) return alert(error);
     await getCart();
   };
