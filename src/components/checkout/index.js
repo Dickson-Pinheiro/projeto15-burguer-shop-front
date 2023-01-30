@@ -11,12 +11,19 @@ export default function Checkout() {
     let cartProductsName = cart.map(c => c.name)
     cartProductsName.sort()
     let newOrders = []
-  
+    console.log(cartProductsName)
+    let lastPosition = 0;
     cartProductsName.forEach((name, i) => {
       if(name === cartProductsName[i + 1]){
         return
       }
-      newOrders.push({product: name, amount: `${i+1}`})
+      if(lastPosition === 0){
+        newOrders.push({product: name, amount: `${i + 1}`})
+        lastPosition = i
+        return
+      }
+      newOrders.push({product: name, amount: `${i - lastPosition}`})
+      lastPosition = i;
     })
     setOrders(newOrders)
   }, [])
