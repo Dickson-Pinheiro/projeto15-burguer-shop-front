@@ -104,7 +104,7 @@ export default function useApi(token) {
         await api.post(
           "/checkout",
           { city, street, district, number, paymentForms, value, orders },
-          { baseURL: process.env.REACT_APP_API_BASEURL }
+          config
         );
         return { success: true };
       } catch (error) {
