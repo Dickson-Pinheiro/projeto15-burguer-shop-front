@@ -1,21 +1,26 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import { CheckoutBody } from "./style";
+
 
 export default function Checkout() {
   const { cart, address, orders, setOrders } = useContext(CartContext);
   const { city, street, district, number, paymentForms } = address;
 
+  useEffect(() => {
+    let cartProductsName = cart.map(c => c.name)
+    cartProductsName.sort()
+    let newOrders = []
+  
+    cartProductsName.forEach((name, i) => {
+      if(name === cartProductsName[i + 1]){
+        return
+      }
+      newOrders.push({product: name, amount: i+1})
+    })
+    setOrders(newOrders)
+  }, [])
 
-  let amount = 1;
-  for (let i = 0; i < cart.length; i++) {
-    if (i < cart.length - 1 && cart[i].name === cart[i + 1].name) {
-      amount++;
-    } else {
-      setOrders(...orders, { product: cart[i].name, amount: amount } )
-      amount = 1;
-    }
-  }
 
   const value = cart.reduce((total, { value }) => {
     return (total += parseFloat(value));
