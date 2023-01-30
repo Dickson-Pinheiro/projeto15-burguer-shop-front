@@ -16,7 +16,7 @@ export default function Checkout() {
       if(name === cartProductsName[i + 1]){
         return
       }
-      newOrders.push({product: name, amount: i+1})
+      newOrders.push({product: name, amount: `${i+1}`})
     })
     setOrders(newOrders)
   }, [])
