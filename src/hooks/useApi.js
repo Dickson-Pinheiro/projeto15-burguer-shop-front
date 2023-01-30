@@ -101,6 +101,13 @@ export default function useApi(token) {
       orders
     ) => {
       try {
+        console.log({city,
+          street,
+          district,
+          number,
+          paymentForms,
+          value,
+          orders})
         await api.post(
           "/checkout",
           { city, street, district, number, paymentForms, value, orders },

@@ -31,7 +31,9 @@ export function FormsSteps() {
         value,
         orders
       );
-      console.log(result.success);
+      if(result.success){
+        next()
+      }
     } catch (error) {
       console.log(error);
     }
