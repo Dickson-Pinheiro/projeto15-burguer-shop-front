@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import useApi from "../../hooks/useApi";
 import useCart from "../../hooks/useCart";
 import CartProduct from "../ProductCart";
 import {
@@ -10,26 +8,10 @@ import {
 } from "./style";
 
 export default function Cart() {
-  const token = localStorage.getItem("token");
-  const { showCartProducts } = useApi(token);
   const { cart, deleteAllProducts } = useCart();
   const totalAmount = cart.reduce((total, { value }) => {
     return (total += parseFloat(value));
   }, 0);
-
-  // useEffect(() => {
-  //   const getProducts = async () => {
-  //     const { success, cartProducts, error } = await showCartProducts();
-  //     if (!success) {
-  //       return console.log(error);
-  //     }
-  //     setCartProducts(cartProducts);
-  //   };
-
-  //   getProducts();
-  // }, []);
-
-  //TODO: Tornar carrinho reponsivo
 
   return (
     <CartContainer>

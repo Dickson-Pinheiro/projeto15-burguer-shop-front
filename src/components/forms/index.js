@@ -46,7 +46,7 @@ export function FormsSteps() {
     return (total += parseFloat(value));
   }, 0);
 
-  const { steps, currentStep, step, isFirstStep, back, next, isLastStep } =
+  const { steps, currentStep, step, isFirstStep, back, next, isLastStep, goTo } =
     useMultStepFoms([<Cart />, <LocationForm />, <Checkout />, <Finished />]);
   return (
     <FormsContainer onSubmit={onSubmit}>
@@ -81,6 +81,9 @@ export function FormsSteps() {
             )}
           </div>
         )}
+        {currentStep === 3 ? <ButtonStyled onClick={() => {
+          goTo(0)
+        }}>Carrinho</ButtonStyled> : ""}
       </BodyForms>
     </FormsContainer>
   );
