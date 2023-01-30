@@ -7,13 +7,15 @@ import { ButtonStyled } from "../../assets/style/buttonStyled";
 import { useContext } from "react";
 import { CartContext } from "../../contexts/CartContext";
 import useApi from "../../hooks/useApi";
+import useCart from "../../hooks/useCart";
 
 const title = ["Carrinho", "Endereço", "Confirmar Compra"];
 
 export function FormsSteps() {
   const { cart, address, orders } = useContext(CartContext);
   const { city, street, district, number, paymentForms } = address;
-  const api = useApi(localStorage.getItem("token"))
+  const api = useApi(localStorage.getItem("token"));
+  const { deleteAllProducts } = useCart();
 
   function onSubmit(e) {
     e.preventDefault();
@@ -31,8 +33,9 @@ export function FormsSteps() {
         value,
         orders
       );
-      if(result.success){
-        next()
+      if (result.success) {
+        deleteAllProducts();
+        next();
       }
     } catch (error) {
       console.log(error);
@@ -42,7 +45,6 @@ export function FormsSteps() {
   const value = cart.reduce((total, { value }) => {
     return (total += parseFloat(value));
   }, 0);
-
 
   const { steps, currentStep, step, isFirstStep, back, next, isLastStep } =
     useMultStepFoms([<Cart />, <LocationForm />, <Checkout />, <Finished />]);
@@ -68,7 +70,9 @@ export function FormsSteps() {
             {cart.length ? (
               <ButtonStyled
                 type={currentStep === 1 ? "submit" : "button"}
-                onClick={isLastStep ? postData :(currentStep === 1 ? undefined : next)}
+                onClick={
+                  isLastStep ? postData : currentStep === 1 ? undefined : next
+                }
               >
                 {isLastStep ? "Confirmar" : "Proximo"}
               </ButtonStyled>
