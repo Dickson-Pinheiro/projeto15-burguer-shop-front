@@ -13,13 +13,15 @@ export default function Checkout() {
     let newOrders = []
     console.log(cartProductsName)
     let lastPosition = 0;
+    let isFristItem = true;
     cartProductsName.forEach((name, i) => {
       if(name === cartProductsName[i + 1]){
         return
       }
-      if(lastPosition === 0){
+      if(lastPosition === 0 && isFristItem){
         newOrders.push({product: name, amount: `${i + 1}`})
         lastPosition = i
+        isFristItem = false
         return
       }
       newOrders.push({product: name, amount: `${i - lastPosition}`})
