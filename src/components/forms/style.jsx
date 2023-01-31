@@ -1,18 +1,12 @@
 import styled from "styled-components";
 
 export const FormsContainer = styled.form`
-  min-width: 450px;
   max-width: 450px;
   width: 100%;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-
   display: flex;
   flex-direction: column;
-  div {
-    display: flex;
-    justify-content: space-between;
-  }
 `;
 
 export const HeaderForms = styled.div`

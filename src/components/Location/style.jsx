@@ -35,6 +35,7 @@ export const SelectPayment = styled.select`
 
 export const ContainerInp = styled.div`
   display: flex;
+  justify-content: space-between;
 `;
 
 export const InputStreet = styled.input`

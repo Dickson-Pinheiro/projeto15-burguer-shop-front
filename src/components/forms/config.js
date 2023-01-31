@@ -25,7 +25,7 @@ export function useMultStepFoms(steps) {
     currentStep,
     step: steps[currentStep],
     isFirstStep: currentStep === 0,
-    isLastStep: currentStep === steps.length - 2,
+    isLastStep: currentStep === steps.length - 1,
     steps,
     goTo,
     next,
