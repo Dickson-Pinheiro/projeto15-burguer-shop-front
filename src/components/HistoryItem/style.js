@@ -8,7 +8,6 @@ export const ContainerItem = styled.div`
     padding-left: 15px;
     padding-right: 15px;
     background-color: #EDEBE1;
-    margin-top: 20px;
     border-radius: 5px;
     p:first-child {
         font-family: "Poppins", sans-serif;

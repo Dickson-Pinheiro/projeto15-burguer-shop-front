@@ -18,8 +18,8 @@ export default function Header() {
         <h1>BurguerShop</h1>
         <nav>
           <ul>
-            <li><LinkNav to="/home" activeClassName="active">Home</LinkNav></li>
-            <li><LinkNav to="/history" activeClassName="nav-link">History</LinkNav></li>
+            <li><LinkNav to="/home" activeclassname="active">Home</LinkNav></li>
+            <li><LinkNav to="/history" activeclassname="nav-link">History</LinkNav></li>
           </ul>
           <img src={logout} alt="logout" onClick={logoutButton} />
         </nav>
