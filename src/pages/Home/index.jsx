@@ -14,7 +14,6 @@ export default function Home() {
   useEffect(() => {
     async function validToken() {
       const result = await api.verifyToken(localStorage.getItem("token"))
-      console.log(result.validationToken.data.valid)
       if (!result.validationToken.data.valid) {
         navigate("/")
       }

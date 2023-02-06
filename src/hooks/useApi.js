@@ -119,6 +119,15 @@ export default function useApi(token) {
         return { success: false, error };
       }
     },
+    getHistories: async () => {
+      try {
+        const histories = await api.get("/checkout", config)
+        return {success: true, histories}
+      } catch (error) {
+        console.log(error)
+        return {success: false}
+      }
+    }
   };
   return apiFunctions;
 }

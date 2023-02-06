@@ -2,12 +2,11 @@ import styled from "styled-components";
 
 export const ProductsBody = styled.div`
   display: flex;
+  justify-content: center;
   width: 80%;
   height: fit-content;
   flex-wrap: wrap;
-  gap: 20px;
-  row-gap: 30px;
-  column-gap: 30px;
+  gap: 30px;
   margin-bottom: 30px;
 `;
 

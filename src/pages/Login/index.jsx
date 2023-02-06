@@ -16,7 +16,6 @@ export default function Login() {
     useEffect(() => {
        async function validToken(){
             const result = await api.verifyToken(localStorage.getItem("token"))
-            console.log(result.validationToken.data.valid)
             if(result.validationToken.data.valid){
                 navigate("/home")
             }
@@ -27,7 +26,6 @@ export default function Login() {
 
     async function submitLogin(values) {
         const loginData = await api.loginUser(values.email, values.password)
-        console.log(loginData)
         if (loginData.success) {
             setErrorLogin(false)
             localStorage.setItem("token", loginData.token)
